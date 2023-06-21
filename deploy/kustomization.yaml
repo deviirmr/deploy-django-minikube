@@ -1,0 +1,6 @@
+secretGenerator:
+  - name: db-passward
+    literals:
+      - passward=devgis123
+resources:
+  - postgres.yaml
