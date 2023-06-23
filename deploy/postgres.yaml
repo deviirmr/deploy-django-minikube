@@ -70,5 +70,5 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: db-passward
-                  key: passward
+                  name: db-password
+                  key: password

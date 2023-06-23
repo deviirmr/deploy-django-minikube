@@ -1,9 +1,10 @@
 secretGenerator:
-  - name: db-passward
+  - name: db-password
     literals:
-      - passward=devgis123
+      - password=devgis123
   - name: django
     literals:
       - secret=secret1234
 resources:
   - postgres.yaml
+  - django.yaml

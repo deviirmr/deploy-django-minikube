@@ -52,46 +52,49 @@ spec:
         tier: app
     spec:
       volumes:
-        - name: django--app-data
+        - name: django-app-data
           persistentVolumeClaim:
             claimName: django-app-pvc
       containers:
-        - image: django-proxy:latest
+        - image: django-app:latest
           imagePullPolicy: Never
           name: app
-          # ports:
-          #   - containerPort: 5432
-          #     name: postgres
+          ports:
+            - containerPort: 8080
+              name: app
           volumeMounts:
-            - name: django--app-data
+            - name: django-app-data
               mountPath: /vol/web
           env:
             - name: DB_HOST
-              value: django_postgres
+              value: django-postgres
             - name: DB_NAME
               value: djangodb
             - name: DB_USER
-              value: djangodb
-            - name: ALLOWED_HOST
+              value: djangouser
+            - name: ALLOWED_HOSTS
               value: '127.0.0.1,localhost'
+            - name: DEBUG
+              value: '0'
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
-                  name: db-passward
-                  key: passward
+                  name: db-password
+                  key: password
             - name: SECRET_KEY
               valueFrom:
                 secretKeyRef:
                   name: django
                   key: secret
+
         - image: django-proxy:latest
           imagePullPolicy: Never
-          name: app
+          name: proxy
           ports:
             - containerPort: 8000
               name: proxy
           volumeMounts:
-            - name: django--app-data
+            - name: django-app-data
               mountPath: /vol/web
           env:
             - name: APP_HOST
