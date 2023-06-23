@@ -1,3 +1,4 @@
+### services###
 apiVersion: v1
 kind: Service
 metadata:
@@ -12,6 +13,7 @@ spec:
     tier: postgres
   clusterIP: None
 
+### volume ###
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -26,6 +28,7 @@ spec:
     requests:
       storage: 10Gi
 
+### app ###
 ---
 apiVersion: apps/v1
 kind: Deployment
